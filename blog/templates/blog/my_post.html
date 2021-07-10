@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="content-section">
+    <h3>Your Posts</h3>
+    {% for post in my_post %}
+   <article class="media content-section">
+     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+       <div class="media-body">
+         <div class="article-metadata">
+           <a class="mr-2" href="#">{{ post.author }}</a>
+           <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+         </div>
+         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+         <p class="article-content">{{ post.content }}</p>
+         <a class="btn btn-sm btn-info" href="{% url 'update-post' post.id %}">Update</a>
+         <a class="btn btn-sm btn-danger" href="{% url 'delete-post' post.id %}">Delete</a>
+       </div>
+   </article>
+   {% endfor %}
+  </div>
+  {% endblock content %}

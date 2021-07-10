@@ -1,0 +1,48 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<!--search form-->
+<div>
+<form method="" action="" class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" name="post_name" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+</div>
+
+    {% for post in posts %}
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+    {% endfor %}
+    
+    <!--pagination-->
+    <div class="row">
+      <div class="col-md-3 offset-md-4">
+        <ul class="pagination">
+          {% if posts.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+          </li>
+          {% endif %}
+
+          <li class="page-item active">
+            <a class="page-link" href="?page={{ posts.number }}">Current</a>
+          </li>
+
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+{% endblock content %}    
